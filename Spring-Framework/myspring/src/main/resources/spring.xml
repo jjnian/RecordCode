@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!-- 配置事务管理器 -->
+	<!--<bean id="userService" class="cn.runningone.service.UserService" autowire="byName">-->
+		<!--&lt;!&ndash;<property name="role" ref="role"></property>&ndash;&gt;-->
+	<!--</bean>-->
+	<!--<bean id="log" class="cn.runningone.service.Log">-->
+
+	<!--</bean>-->
+	<!--<bean id="logAfter" class="cn.runningone.service.LogAfter"/>-->
+
+	<bean id="role" class="cn.runningone.service.Role" autowire="byType" init-method="init" destroy-method="destory">
+		<!--<property name="userService" ref="userService"></property>-->
+	</bean>
+	<bean id="userService" class="cn.runningone.service.UserService" autowire="byType"/>
+
+
+	<!--<aop:config>-->
+		<!--<aop:pointcut id="pointcut" expression="execution(* cn.runningone.service.Role.*(..))"/>-->
+		<!--<aop:advisor advice-ref="log" pointcut-ref="pointcut"/>-->
+		<!--<aop:advisor advice-ref="logAfter" pointcut-ref="pointcut"/>-->
+	<!--</aop:config>-->
+
+	<!--<bean id="diy" class="cn.runningone.service.DiyPoint"/>-->
+	<!--&lt;!&ndash;aop的配置&ndash;&gt;-->
+	<!--<aop:config>-->
+		<!--&lt;!&ndash;第二种方式：使用AOP的标签实现&ndash;&gt;-->
+		<!--<aop:aspect ref="diy">-->
+			<!--<aop:pointcut id="diyPonitcut" expression="execution(* cn.runningone.service.Role.*(..))"/>-->
+			<!--<aop:before pointcut-ref="diyPonitcut" method="before"/>-->
+			<!--<aop:after pointcut-ref="diyPonitcut" method="after"/>-->
+		<!--</aop:aspect>-->
+	<!--</aop:config>-->
+
+
+	<bean id="my" class="cn.runningone.service.MyMethodInterceptor"/>
+	<bean id="annotationPointcut" class="cn.runningone.service.MyAnnotationPointcut"/>
+	<aop:aspectj-autoproxy/>
+
+</beans>
